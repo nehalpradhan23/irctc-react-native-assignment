@@ -9,6 +9,7 @@ export async function POST(request) {
     const { username, password } = await request.json();
 
     const oldUser = await User.findOne({ username });
+    // console.log("old user: ", oldUser);
 
     if (!oldUser) {
       return Response.json({
@@ -32,7 +33,7 @@ export async function POST(request) {
 
       const token = jwt.sign(
         {
-          username: oldUser.email,
+          username: oldUser.username,
         },
         process.env.jwtSecret
       );

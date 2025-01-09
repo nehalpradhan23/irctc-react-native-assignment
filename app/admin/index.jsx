@@ -8,18 +8,45 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { theme } from "../../constants/theme";
 import { hp } from "../../helpers/common";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const guest = () => {
+const admin = () => {
   const [username, setUsername] = useState("");
   const [usernameVerify, setUsernameVerify] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState(false);
   const [showPassowrd, setShowPassowrd] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedInAs, setIsLoggedInAs] = useState("second");
+
+  const getData = async () => {
+    const data = await AsyncStorage.getItem("isLoggedIn");
+    setIsLoggedIn(data);
+    const loggedInAs = await AsyncStorage.getItem("isLoggedInAs");
+    setIsLoggedInAs(loggedInAs);
+    console.log("home data: --", data);
+    console.log("logged as: --", loggedInAs);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (isLoggedInAs === "admin") {
+        router.replace("/admin/adminHome");
+      } else if (isLoggedInAs === "guest") {
+        router.replace("/guest/guestHome");
+      }
+    }
+  }, [isLoggedIn, isLoggedInAs]);
 
   const router = useRouter();
 
@@ -46,6 +73,9 @@ const guest = () => {
         // }
         if (response.data.status == "ok") {
           Alert.alert("Login sucessful");
+          AsyncStorage.setItem("token", response.data.data);
+          AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+          AsyncStorage.setItem("isLoggedInAs", "admin");
           console.log("success ------------------------------");
           router.replace("admin/adminHome");
         } else {
@@ -188,7 +218,7 @@ const guest = () => {
   );
 };
 
-export default guest;
+export default admin;
 
 const styles = StyleSheet.create({
   loginContainer: {

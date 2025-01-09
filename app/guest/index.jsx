@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useRouter } from "expo-router";
 import { theme } from "../../constants/theme";
 import { hp } from "../../helpers/common";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const guest = () => {
   const [username, setUsername] = useState("");
@@ -20,6 +21,32 @@ const guest = () => {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState(false);
   const [showPassowrd, setShowPassowrd] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedInAs, setIsLoggedInAs] = useState("second");
+
+  const getData = async () => {
+    const data = await AsyncStorage.getItem("isLoggedIn");
+    setIsLoggedIn(data);
+    const loggedInAs = await AsyncStorage.getItem("isLoggedInAs");
+    setIsLoggedInAs(loggedInAs);
+    console.log("home data: --", data);
+    console.log("logged as: --", loggedInAs);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (isLoggedInAs === "admin") {
+        router.replace("/admin/adminHome");
+      } else if (isLoggedInAs === "guest") {
+        router.replace("/guest/guestHome");
+      }
+    }
+  }, [isLoggedIn, isLoggedInAs]);
 
   const router = useRouter();
 
@@ -44,8 +71,12 @@ const guest = () => {
 
         //   setError(response.data.message);
         // }
+        // if (response.data.data) {
         if (response.data.status == "ok") {
           Alert.alert("Login sucessful");
+          AsyncStorage.setItem("token", response.data.data);
+          AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+          AsyncStorage.setItem("isLoggedInAs", "guest");
           console.log("success ------------------------------");
           router.replace("guest/guestHome");
         } else {

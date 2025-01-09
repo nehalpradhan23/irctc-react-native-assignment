@@ -32,7 +32,7 @@ export async function POST(request) {
 
       const token = jwt.sign(
         {
-          username: oldUser.email,
+          username: oldUser.username,
         },
         process.env.jwtSecret
       );
