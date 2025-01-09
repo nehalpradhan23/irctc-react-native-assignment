@@ -1,4 +1,5 @@
 import {
+  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -7,10 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { theme } from "../../constants/theme";
 import { hp } from "../../helpers/common";
+import axios from "axios";
 
 const register = () => {
   const router = useRouter();
@@ -21,6 +23,55 @@ const register = () => {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState(false);
   const [showPassowrd, setShowPassowrd] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async () => {
+    setError("");
+    if (usernameVerify && emailVerify && passwordVerify) {
+      console.log("register");
+      // return;
+
+      try {
+        // const response = await axios.post("(api)/user", {
+        //   username,
+        //   email,
+        //   password,
+        //   isAdmin: false,
+        // });
+        const response = await axios.post(
+          "http://192.168.0.108:8081/(api)/user",
+          {
+            username,
+            email,
+            password,
+            isAdmin: false,
+          }
+        );
+
+        console.log("register response", response.data);
+        // if (response.data.error) {
+        //   console.log("not okay ------------------------------");
+
+        //   setError(response.data.message);
+        // }
+        if (response.data.data) {
+          Alert.alert("User registered successfully");
+          console.log("success ------------------------------");
+          router.replace("guest");
+        } else {
+          console.log("unsuccessful ------------------------------");
+          Alert.alert(response.data.message);
+        }
+
+        // if(response.data)
+      } catch (error) {
+        console.log("register error", message);
+        // return;
+      }
+    } else {
+      Alert.alert("Fill details");
+    }
+  };
 
   const handleUsername = (e) => {
     const nameVar = e.nativeEvent.text;
@@ -65,6 +116,7 @@ const register = () => {
         <View>
           <View style={styles.loginContainer}>
             <Text style={styles.text_header}>Register as Guest</Text>
+            {error && <Text style={{ color: "red" }}>Error: {error}</Text>}
             {/* inputs ================= */}
             <View style={styles.action}>
               <TextInput
@@ -144,12 +196,19 @@ const register = () => {
               </View>
             )}
           </View>
-          {/* login button------------------ */}
+          {/* register button------------------ */}
           <View style={styles.button}>
-            <TouchableOpacity style={styles.loginBtn}>
-              <View>
-                <Text style={styles.btnText}>Register</Text>
-              </View>
+            <TouchableOpacity
+              style={styles.loginBtn}
+              onPress={() => handleSubmit()}
+              // disabled={isVaild}
+            >
+              <Text style={[styles.btnText]}>
+                {/* <Text
+                style={[styles.btnText, { color: isVaild ? "gray" : "black" }]}
+              > */}
+                Register
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
