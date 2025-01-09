@@ -1,64 +1,176 @@
 import {
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { theme } from "../../constants/theme";
 import { hp } from "../../helpers/common";
 
 const register = () => {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [usernameVerify, setUsernameVerify] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailVerify, setEmailVerify] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordVerify, setPasswordVerify] = useState(false);
+  const [showPassowrd, setShowPassowrd] = useState(false);
+
+  const handleUsername = (e) => {
+    const nameVar = e.nativeEvent.text;
+    setUsername(nameVar);
+    setUsernameVerify(false);
+    if (nameVar.length > 3) {
+      setUsernameVerify(true);
+    }
+  };
+
+  // const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const handleEmail = (e) => {
+    const emailVar = e.nativeEvent.text;
+
+    setEmail(emailVar);
+    setEmailVerify(false);
+    if (emailRegex.test(emailVar)) {
+      setEmail(emailVar);
+      setEmailVerify(true);
+    }
+  };
+
+  const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  const handlePassword = (e) => {
+    const passwordVar = e.nativeEvent.text;
+    setPassword(passwordVar);
+    setPasswordVerify(false);
+    if (passwordRegex.test(passwordVar)) {
+      setPassword(passwordVar);
+      setPasswordVerify(true);
+    }
+  };
+  // ===============================================
   return (
-    <View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={"always"}
+    >
       <View>
-        <View style={styles.loginContainer}>
-          <Text style={styles.text_header}>Register as Guest</Text>
-          {/* inputs ================= */}
-          <View style={styles.action}>
-            <TextInput placeholder="Username" style={styles.textInput} />
-          </View>
-          <View style={styles.action}>
-            <TextInput placeholder="Email" style={styles.textInput} />
-          </View>
-          <View style={styles.action}>
-            <TextInput
-              placeholder="Password"
-              secureTextEntry
-              style={styles.textInput}
-            />
-          </View>
-        </View>
-        {/* login button------------------ */}
-        <View style={styles.button}>
-          <TouchableOpacity style={styles.loginBtn}>
-            <View>
-              <Text style={styles.btnText}>Register</Text>
+        <View>
+          <View style={styles.loginContainer}>
+            <Text style={styles.text_header}>Register as Guest</Text>
+            {/* inputs ================= */}
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Username"
+                style={styles.textInput}
+                onChange={(e) => handleUsername(e)}
+              />
             </View>
-          </TouchableOpacity>
+            {username.length < 1 ? null : usernameVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                username should be more than 3 characters
+              </Text>
+            )}
+            {/* email ------------------------ */}
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Email"
+                style={styles.textInput}
+                onChange={(e) => handleEmail(e)}
+              />
+            </View>
+            {email.length < 1 ? null : emailVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                Invalid Email
+              </Text>
+            )}
+            {/* password ------------------------------- */}
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Password"
+                secureTextEntry={!showPassowrd}
+                style={styles.textInput}
+                onChange={(e) => handlePassword(e)}
+              />
+              {password.length < 1 ? null : !showPassowrd ? (
+                <TouchableOpacity
+                  onPress={() => setShowPassowrd(!showPassowrd)}
+                >
+                  <Text>SHOW</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => setShowPassowrd(!showPassowrd)}
+                >
+                  <Text>HIDE</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            {password.length < 1 ? null : passwordVerify ? null : (
+              <View style={{ marginTop: 10 }}>
+                <Text
+                  style={{
+                    marginLeft: 20,
+                    color: "red",
+                  }}
+                >
+                  - Password length must be more than 6 characters
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: 20,
+                    color: "red",
+                  }}
+                >
+                  - One uppercase, lowercase, number and special character
+                </Text>
+              </View>
+            )}
+          </View>
+          {/* login button------------------ */}
+          <View style={styles.button}>
+            <TouchableOpacity style={styles.loginBtn}>
+              <View>
+                <Text style={styles.btnText}>Register</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Already have an account?</Text>
+          <Pressable onPress={() => router.replace("guest")}>
+            <Text
+              style={[
+                styles.footerText,
+                {
+                  color: theme.colors.primaryDark,
+                  fontWeight: theme.fonts.semibold,
+                },
+              ]}
+            >
+              Login
+            </Text>
+          </Pressable>
         </View>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Already have an account?</Text>
-        <Pressable onPress={() => router.replace("guest")}>
-          <Text
-            style={[
-              styles.footerText,
-              {
-                color: theme.colors.primaryDark,
-                fontWeight: theme.fonts.semibold,
-              },
-            ]}
-          >
-            Login
-          </Text>
-        </Pressable>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -98,7 +210,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    marginTop: -20,
+    // marginTop: -20,
     alignItems: "center",
     textAlign: "center",
     margin: 20,
