@@ -65,7 +65,7 @@ const register = () => {
 
         // if(response.data)
       } catch (error) {
-        console.log("register error", message);
+        console.log("register error", error.message);
         // return;
       }
     } else {

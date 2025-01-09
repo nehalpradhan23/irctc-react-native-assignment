@@ -58,6 +58,18 @@ export default function Layout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="admin/adminHome"
+        options={{
+          // title: "Guest home",
+          // headerStyle: {
+          //   backgroundColor: theme.colors.primary,
+          // },
+          // headerTintColor: "white",
+          // headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
