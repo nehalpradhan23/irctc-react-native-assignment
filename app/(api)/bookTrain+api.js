@@ -16,6 +16,7 @@ export async function POST(request) {
       sourceTime,
       destDate,
       destTime,
+      seatNumber,
     } = await request.json();
 
     const newBooking = new NewTrainBooking({
@@ -28,6 +29,7 @@ export async function POST(request) {
       sourceTime,
       destDate,
       destTime,
+      seatNumber,
     });
 
     await newBooking.save();
@@ -41,7 +43,7 @@ export async function POST(request) {
     // console.log(error);
     return Response.json({
       error: error,
-      message: "Cannot booki train",
+      message: "Cannot book train",
       status: 400,
     });
   }

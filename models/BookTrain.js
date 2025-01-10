@@ -10,6 +10,7 @@ const bookTrainSchema = new mongoose.Schema({
   sourceTime: { type: Date, required: true },
   destDate: { type: Date, required: true },
   destTime: { type: Date, required: true },
+  seatNumber: { type: String, required: true },
 });
 
 const NewTrainBooking =

@@ -11,7 +11,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { signout } from "@/constants/signout";
 import { useRouter } from "expo-router";
-import { hp } from "@/helpers/common";
 
 const guestHome = () => {
   const [userData, setUserData] = useState("");
@@ -123,7 +122,12 @@ const guestHome = () => {
         <View>
           <TouchableOpacity
             style={styles.myBookingsBtn}
-            onPress={() => router.push("/guest/myBookings")}
+            onPress={() =>
+              router.push({
+                pathname: "/guest/myBookings",
+                params: { username: userData.username },
+              })
+            }
           >
             <Text style={styles.myBookingsBtnText}>My bookings</Text>
           </TouchableOpacity>

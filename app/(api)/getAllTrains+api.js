@@ -1,7 +1,7 @@
 import connect from "@/lib/mongodb";
 import NewTrain from "@/models/AddTrain";
 
-export async function GET(request) {
+export async function GET() {
   try {
     console.log("fetching all trains -----------------");
     await connect();
@@ -12,7 +12,7 @@ export async function GET(request) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.log(" fetching all trains", error);
+    console.log("error fetching all trains", error);
     return new Response(
       JSON.stringify({ status: "error", message: error.message }),
       {
