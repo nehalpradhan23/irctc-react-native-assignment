@@ -30,8 +30,6 @@ const guest = () => {
     setIsLoggedIn(data);
     const loggedInAs = await AsyncStorage.getItem("isLoggedInAs");
     setIsLoggedInAs(loggedInAs);
-    console.log("home data: --", data);
-    console.log("logged as: --", loggedInAs);
   };
 
   useEffect(() => {
@@ -51,11 +49,7 @@ const guest = () => {
   const router = useRouter();
 
   const handleSubmit = async () => {
-    // console.log(username, password);
-
     if (usernameVerify && passwordVerify) {
-      console.log("login");
-
       try {
         const response = await axios.post(
           `${process.env.EXPO_PUBLIC_APIURL}/(api)/guestLogin`,
@@ -65,14 +59,13 @@ const guest = () => {
           }
         );
         // const response = await axios.post(
-        //   "http://192.168.0.108:8081/(api)/guestLogin",
+        //   "http://myIp:8081/(api)/guestLogin",
         //   {
         //     username,
         //     password,
         //   }
         // );
 
-        console.log("login response", response.data);
         // if (response.data.error) {
         //   console.log("not okay ------------------------------");
 
@@ -84,10 +77,8 @@ const guest = () => {
           AsyncStorage.setItem("token", response.data.data);
           AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
           AsyncStorage.setItem("isLoggedInAs", "guest");
-          console.log("success ------------------------------");
           router.replace("guest/guestHome");
         } else {
-          console.log("unsuccessful ------------------------------");
           Alert.alert(response.data.message);
         }
 

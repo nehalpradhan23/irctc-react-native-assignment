@@ -24,7 +24,6 @@ const myBookings = () => {
         `${process.env.EXPO_PUBLIC_APIURL}/(api)/getMyBookings`,
         { username }
       );
-      console.log("bookings: ", response.data);
       setBookingsData(response.data.data);
       setLoading(false);
     } catch (error) {

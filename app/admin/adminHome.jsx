@@ -23,7 +23,6 @@ const adminHome = () => {
   // ===================================
   const getData = async () => {
     const token = await AsyncStorage.getItem("token");
-    console.log("token:--- ", token);
 
     const response = await axios.post(
       `${process.env.EXPO_PUBLIC_APIURL}/(api)/userData`,
@@ -32,10 +31,9 @@ const adminHome = () => {
       }
     );
     // const response = await axios.post(
-    //   "http://192.168.0.108:8081/(api)/userData",
+    //   "http://myIp:8081/(api)/userData",
     //   { token }
     // );
-    console.log("user data: --", response.data);
     setUserData(response.data.data);
   };
 
@@ -46,9 +44,8 @@ const adminHome = () => {
         `${process.env.EXPO_PUBLIC_APIURL}/(api)/getAllTrains`
       );
       // const response = await axios.get(
-      //   "http://192.168.0.108:8081/(api)/getAllTrains"
+      //   "http://myIp:8081/(api)/getAllTrains"
       // );
-      console.log("trains data: --", response.data);
 
       setAllTrains(response.data.data);
     } catch (error) {

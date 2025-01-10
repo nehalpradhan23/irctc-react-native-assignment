@@ -30,8 +30,6 @@ const admin = () => {
     setIsLoggedIn(data);
     const loggedInAs = await AsyncStorage.getItem("isLoggedInAs");
     setIsLoggedInAs(loggedInAs);
-    console.log("home data: --", data);
-    console.log("logged as: --", loggedInAs);
   };
 
   useEffect(() => {
@@ -51,11 +49,7 @@ const admin = () => {
   const router = useRouter();
 
   const handleSubmit = async () => {
-    // console.log(username, password);
-
     if (usernameVerify && passwordVerify) {
-      console.log("login admin");
-
       try {
         const response = await axios.post(
           `${process.env.EXPO_PUBLIC_APIURL}/(api)/adminLogin`,
@@ -65,14 +59,13 @@ const admin = () => {
           }
         );
         // const response = await axios.post(
-        //   "http://192.168.0.108:8081/(api)/adminLogin",
+        //   "http://myIp:8081/(api)/adminLogin",
         //   {
         //     username,
         //     password,
         //   }
         // );
 
-        console.log("login response", response.data);
         // if (response.data.error) {
         //   console.log("not okay ------------------------------");
 
@@ -83,10 +76,10 @@ const admin = () => {
           AsyncStorage.setItem("token", response.data.data);
           AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
           AsyncStorage.setItem("isLoggedInAs", "admin");
-          console.log("success ------------------------------");
+          // console.log("success ------------------------------");
           router.replace("admin/adminHome");
         } else {
-          console.log("unsuccessful ------------------------------");
+          // console.log("unsuccessful ------------------------------");
           Alert.alert(response.data.message);
         }
 

@@ -61,17 +61,17 @@ const addTrain = () => {
       return;
     }
 
-    console.log(
-      "details: ",
-      trainName,
-      source,
-      destination,
-      seatCapacity,
-      sourceDate.toDateString(),
-      sourceTime.toLocaleTimeString(),
-      destDate.toDateString(),
-      destTime.toLocaleTimeString()
-    );
+    // console.log(
+    //   "details: ",
+    //   trainName,
+    //   source,
+    //   destination,
+    //   seatCapacity,
+    //   sourceDate.toDateString(),
+    //   sourceTime.toLocaleTimeString(),
+    //   destDate.toDateString(),
+    //   destTime.toLocaleTimeString()
+    // );
 
     try {
       const response = await axios.post(
@@ -88,7 +88,7 @@ const addTrain = () => {
         }
       );
       // const response = await axios.post(
-      //   "http://192.168.0.108:8081/(api)/addTrain",
+      //   "http://myIp:8081/(api)/addTrain",
       //   {
       //     trainName,
       //     source,
@@ -100,7 +100,7 @@ const addTrain = () => {
       //     destTime,
       //   }
       // );
-      console.log("add train response", response.data);
+      // console.log("add train response", response.data);
       if (response.data.data) {
         Alert.alert("Train added successfully");
         router.replace("/admin/adminHome");

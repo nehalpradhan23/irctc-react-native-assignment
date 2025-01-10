@@ -7,7 +7,7 @@ export async function POST(request) {
     console.log("connecting.. ");
     await connect();
     const { token } = await request.json();
-    console.log("token api==================================", token);
+    // console.log("token api==================================", token);
 
     const user = jwt.verify(token, process.env.jwtSecret);
 
@@ -17,7 +17,7 @@ export async function POST(request) {
     const currentUser = await User.findOne({ username: user.username });
 
     if (currentUser) {
-      console.log("current user -----", currentUser);
+      // console.log("current user -----", currentUser);
       return Response.json({
         status: "ok",
         data: currentUser,

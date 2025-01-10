@@ -18,8 +18,8 @@ const index = () => {
     setIsLoggedIn(data);
     const loggedInAs = await AsyncStorage.getItem("isLoggedInAs");
     setIsLoggedInAs(loggedInAs);
-    console.log("home data: --", data);
-    console.log("logged as: --", loggedInAs);
+    // console.log("home data: --", data);
+    // console.log("logged as: --", loggedInAs);
   };
 
   useEffect(() => {

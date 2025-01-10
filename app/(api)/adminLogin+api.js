@@ -28,7 +28,7 @@ export async function POST(request) {
     // console.log(oldUser);
 
     if (password === oldUser.password) {
-      console.log("checking password");
+      // console.log("checking password");
 
       const token = jwt.sign(
         {

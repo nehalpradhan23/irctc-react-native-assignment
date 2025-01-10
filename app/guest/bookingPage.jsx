@@ -59,7 +59,7 @@ const bookingPage = () => {
           seatNumber: selectedSeatNumber,
         }
       );
-      console.log("book train response", response.data);
+
       if (response.data.data) {
         setLoading(false);
         Alert.alert("Train booked successfully");

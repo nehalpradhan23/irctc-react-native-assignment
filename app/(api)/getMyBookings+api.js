@@ -3,10 +3,9 @@ import NewTrainBooking from "@/models/BookTrain";
 
 export async function POST(request) {
   try {
-    console.log("fetching all booked trains -----------------");
+    // console.log("fetching all booked trains -----------------");
     await connect();
     const { username } = await request.json();
-    console.log("========", username);
 
     if (!username) {
       return new Response({

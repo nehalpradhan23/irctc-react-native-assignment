@@ -28,9 +28,6 @@ const register = () => {
   const handleSubmit = async () => {
     setError("");
     if (usernameVerify && emailVerify && passwordVerify) {
-      console.log("register");
-      // return;
-
       try {
         // const response = await axios.post("(api)/user", {
         //   username,
@@ -48,7 +45,7 @@ const register = () => {
           }
         );
         // const response = await axios.post(
-        //   "http://192.168.0.108:8081/(api)/user",
+        //   "http://myIp:8081/(api)/user",
         //   {
         //     username,
         //     email,
@@ -57,18 +54,14 @@ const register = () => {
         //   }
         // );
 
-        console.log("register response", response.data);
         // if (response.data.error) {
-        //   console.log("not okay ------------------------------");
 
         //   setError(response.data.message);
         // }
         if (response.data.data) {
           Alert.alert("User registered successfully");
-          console.log("success ------------------------------");
           router.replace("guest");
         } else {
-          console.log("unsuccessful ------------------------------");
           Alert.alert(response.data.message);
         }
 
