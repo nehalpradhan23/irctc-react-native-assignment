@@ -39,7 +39,7 @@ const register = () => {
         //   isAdmin: false,
         // });
         const response = await axios.post(
-          "http://192.168.0.108:8081/(api)/user",
+          `${process.env.EXPO_PUBLIC_APIURL}/(api)/user`,
           {
             username,
             email,
@@ -47,6 +47,15 @@ const register = () => {
             isAdmin: false,
           }
         );
+        // const response = await axios.post(
+        //   "http://192.168.0.108:8081/(api)/user",
+        //   {
+        //     username,
+        //     email,
+        //     password,
+        //     isAdmin: false,
+        //   }
+        // );
 
         console.log("register response", response.data);
         // if (response.data.error) {

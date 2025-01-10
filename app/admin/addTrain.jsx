@@ -75,7 +75,7 @@ const addTrain = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.0.108:8081/(api)/addTrain",
+        `${process.env.EXPO_PUBLIC_APIURL}/(api)/addTrain`,
         {
           trainName,
           source,
@@ -87,6 +87,19 @@ const addTrain = () => {
           destTime,
         }
       );
+      // const response = await axios.post(
+      //   "http://192.168.0.108:8081/(api)/addTrain",
+      //   {
+      //     trainName,
+      //     source,
+      //     destination,
+      //     seatCapacity,
+      //     sourceDate,
+      //     sourceTime,
+      //     destDate,
+      //     destTime,
+      //   }
+      // );
       console.log("add train response", response.data);
       if (response.data.data) {
         Alert.alert("Train added successfully");

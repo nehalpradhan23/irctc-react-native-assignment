@@ -58,12 +58,19 @@ const admin = () => {
 
       try {
         const response = await axios.post(
-          "http://192.168.0.108:8081/(api)/adminLogin",
+          `${process.env.EXPO_PUBLIC_APIURL}/(api)/adminLogin`,
           {
             username,
             password,
           }
         );
+        // const response = await axios.post(
+        //   "http://192.168.0.108:8081/(api)/adminLogin",
+        //   {
+        //     username,
+        //     password,
+        //   }
+        // );
 
         console.log("login response", response.data);
         // if (response.data.error) {

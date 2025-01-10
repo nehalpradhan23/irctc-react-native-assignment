@@ -26,9 +26,15 @@ const adminHome = () => {
     console.log("token:--- ", token);
 
     const response = await axios.post(
-      "http://192.168.0.108:8081/(api)/userData",
-      { token }
+      `${process.env.EXPO_PUBLIC_APIURL}/(api)/userData`,
+      {
+        token,
+      }
     );
+    // const response = await axios.post(
+    //   "http://192.168.0.108:8081/(api)/userData",
+    //   { token }
+    // );
     console.log("user data: --", response.data);
     setUserData(response.data.data);
   };
@@ -37,8 +43,11 @@ const adminHome = () => {
     try {
       // setTrainLoading(true);
       const response = await axios.get(
-        "http://192.168.0.108:8081/(api)/getAllTrains"
+        `${process.env.EXPO_PUBLIC_APIURL}/(api)/getAllTrains`
       );
+      // const response = await axios.get(
+      //   "http://192.168.0.108:8081/(api)/getAllTrains"
+      // );
       console.log("trains data: --", response.data);
 
       setAllTrains(response.data.data);
@@ -132,20 +141,14 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    // backgroundColor: "red",
     justifyContent: "space-between",
     width: "100%",
   },
-
   headerText: {
     fontSize: 22,
   },
   addNewTrainView: {
     paddingVertical: 50,
-    // backgroundColor: "green",
-    // justifyContent: "center",
-    // alignItems: "center",
-    // flex: 1,
   },
   addNewTrainText: {
     fontSize: 25,

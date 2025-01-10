@@ -58,12 +58,19 @@ const guest = () => {
 
       try {
         const response = await axios.post(
-          "http://192.168.0.108:8081/(api)/guestLogin",
+          `${process.env.EXPO_PUBLIC_APIURL}/(api)/guestLogin`,
           {
             username,
             password,
           }
         );
+        // const response = await axios.post(
+        //   "http://192.168.0.108:8081/(api)/guestLogin",
+        //   {
+        //     username,
+        //     password,
+        //   }
+        // );
 
         console.log("login response", response.data);
         // if (response.data.error) {
