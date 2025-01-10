@@ -11,6 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { signout } from "@/constants/signout";
 import { useRouter } from "expo-router";
+import { hp } from "@/helpers/common";
 
 const guestHome = () => {
   const [userData, setUserData] = useState("");
@@ -115,11 +116,11 @@ const guestHome = () => {
               router.replace("/");
             }}
           >
-            <Text style={styles.headerText}>Logout</Text>
+            <Text style={[styles.headerText, { color: "red" }]}>Logout</Text>
           </TouchableOpacity>
         </View>
 
-        <View>
+        <View style={{ paddingVertical: 30 }}>
           <TouchableOpacity
             style={styles.myBookingsBtn}
             onPress={() =>
@@ -145,6 +146,7 @@ const guestHome = () => {
                 renderItem={renderTrainItem}
                 keyExtractor={(item) => item._id}
                 contentContainerStyle={styles.listContainer}
+                showsVerticalScrollIndicator={false}
               />
             )}
           </View>
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: 20,
+    marginVertical: 20,
   },
   headerText: {
     fontSize: 22,
@@ -179,6 +181,7 @@ const styles = StyleSheet.create({
   },
   allTrains: {
     fontSize: 35,
+    marginBottom: 20,
   },
   listContainer: {
     paddingBottom: 20,
@@ -196,6 +199,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     position: "relative",
+    borderWidth: 1,
   },
   trainCardDetails: {
     flex: 1,
@@ -212,11 +216,14 @@ const styles = StyleSheet.create({
   },
   myBookingsBtn: {
     fontSize: 30,
-    marginVertical: 30,
-    backgroundColor: "skyblue",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    height: hp(6),
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 50,
+    // marginVertical: 30,
+    backgroundColor: "skyblue",
+    // paddingHorizontal: 20,
+    // paddingVertical: 10,
   },
   myBookingsBtnText: {
     fontSize: 30,

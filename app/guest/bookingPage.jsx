@@ -38,6 +38,10 @@ const bookingPage = () => {
   };
 
   const handleConfirmBooking = async () => {
+    if (!selectedSeatNumber) {
+      Alert.alert("Enter seat number");
+      return;
+    }
     try {
       setLoading(true);
       const response = await axios.post(
@@ -77,7 +81,7 @@ const bookingPage = () => {
     >
       <ScrollView style={styles.mainContainer}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Booking page</Text>
+          <Text style={styles.headerText}>Book your seat</Text>
         </View>
         {/* <View style={styles.header}>
         <Text style={styles.headerText}>{params.username}</Text>
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   header: {
-    marginVertical: 15,
+    marginVertical: 30,
   },
   headerText: {
     fontSize: 30,

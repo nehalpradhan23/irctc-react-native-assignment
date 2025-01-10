@@ -69,19 +69,62 @@ const adminHome = () => {
   // ===================================
   // Render each train item
   const renderTrainItem = ({ item }) => (
-    <View style={styles.trainCard}>
-      <Text style={styles.trainName}>🚆 {item.trainName}</Text>
-      <Text>Source: {item.source}</Text>
-      <Text>Source Date: {new Date(item.sourceDate).toLocaleDateString()}</Text>
-      <Text>Source Time: {new Date(item.sourceTime).toLocaleTimeString()}</Text>
-      <Text>Destination: {item.destination}</Text>
-      <Text>
-        Destination Date: {new Date(item.destDate).toLocaleDateString()}
-      </Text>
-      <Text>
-        Destination Time: {new Date(item.destTime).toLocaleTimeString()}
-      </Text>
-      <Text>Seat Capacity: {item.seatCapacity}</Text>
+    // <View style={styles.trainCard}>
+    //   <Text style={styles.trainName}>🚆 {item.trainName}</Text>
+    //   <Text>Source: {item.source}</Text>
+    //   <Text>Source Date: {new Date(item.sourceDate).toLocaleDateString()}</Text>
+    //   <Text>Source Time: {new Date(item.sourceTime).toLocaleTimeString()}</Text>
+    //   <Text>Destination: {item.destination}</Text>
+    //   <Text>
+    //     Destination Date: {new Date(item.destDate).toLocaleDateString()}
+    //   </Text>
+    //   <Text>
+    //     Destination Time: {new Date(item.destTime).toLocaleTimeString()}
+    //   </Text>
+    //   <Text>Seat Capacity: {item.seatCapacity}</Text>
+    // </View>
+
+    <View style={styles.trainDetailsContainer}>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Train Name: </Text>
+        <Text style={styles.text}>{item.trainName}</Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Source: </Text>
+        <Text style={styles.text}>{item.source}</Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Destination: </Text>
+        <Text style={styles.text}>{item.destination}</Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Seat capacity: </Text>
+        <Text style={styles.text}>{item.seatCapacity}</Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Source date: </Text>
+        <Text style={styles.text}>
+          {new Date(item.sourceDate).toDateString()}
+        </Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Source Time: </Text>
+        <Text style={styles.text}>
+          {new Date(item.sourceTime).toLocaleTimeString()}
+        </Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Destination Date: </Text>
+        <Text style={styles.text}>
+          {new Date(item.destDate).toDateString()}
+        </Text>
+      </View>
+      <View style={styles.singleDetail}>
+        <Text style={styles.text}>Destination Time: </Text>
+        <Text style={styles.text}>
+          {new Date(item.destTime).toLocaleTimeString()}
+        </Text>
+      </View>
     </View>
   );
   // ===================================
@@ -96,7 +139,7 @@ const adminHome = () => {
               router.replace("/");
             }}
           >
-            <Text style={styles.headerText}>Logout</Text>
+            <Text style={[styles.headerText, { color: "red" }]}>Logout</Text>
           </TouchableOpacity>
         </View>
         {/* add train ---------------------- */}
@@ -121,6 +164,7 @@ const adminHome = () => {
                 renderItem={renderTrainItem}
                 keyExtractor={(item) => item._id}
                 contentContainerStyle={styles.listContainer}
+                showsVerticalScrollIndicator={false}
               />
             )}
           </View>
@@ -140,6 +184,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
@@ -148,10 +193,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   addNewTrainView: {
-    paddingVertical: 50,
+    paddingVertical: 30,
   },
   addNewTrainText: {
     fontSize: 25,
+    fontWeight: "bold",
   },
   addNewTrainBtn: {
     // backgroundColor: theme.colors.primary,
@@ -170,6 +216,7 @@ const styles = StyleSheet.create({
   },
   allTrains: {
     fontSize: 35,
+    marginBottom: 10,
   },
   listContainer: {
     paddingBottom: 20,
@@ -194,5 +241,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8f9fa",
     padding: 10,
+  },
+  trainDetailsContainer: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 20,
+    gap: 7,
+    borderColor: "black",
+    marginBottom: 20,
+    borderWidth: 1,
+  },
+  singleDetail: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  text: {
+    fontSize: 16,
   },
 });

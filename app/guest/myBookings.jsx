@@ -102,7 +102,7 @@ const myBookings = () => {
               router.replace("/");
             }}
           >
-            <Text style={styles.headerText}>Logout</Text>
+            <Text style={[styles.headerText, { color: "red" }]}>Logout</Text>
           </TouchableOpacity>
         </View>
         {/* show all trains */}
@@ -119,6 +119,7 @@ const myBookings = () => {
                     renderItem={renderBookings}
                     keyExtractor={(item) => item._id}
                     contentContainerStyle={styles.listContainer}
+                    showsVerticalScrollIndicator={false}
                   />
                 )}
                 {bookingsData.length === 0 && (
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: 20,
+    marginVertical: 30,
   },
   headerText: {
     fontSize: 22,
@@ -160,6 +161,7 @@ const styles = StyleSheet.create({
   },
   allTrains: {
     fontSize: 35,
+    marginBottom: 15,
   },
   listContainer: {
     paddingBottom: 20,

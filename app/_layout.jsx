@@ -59,14 +59,38 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name="admin/adminHome"
+        name="admin/addTrain"
         options={{
-          // title: "Guest home",
+          title: "Add train",
+          // headerStyle: {
+          //   backgroundColor: theme.colors.primary,
+          // },
+          // headerTintColor: "white",
+          headerTitleAlign: "center",
+          // headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="guest/myBookings"
+        options={{
+          // title: "Add train",
           // headerStyle: {
           //   backgroundColor: theme.colors.primary,
           // },
           // headerTintColor: "white",
           // headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="guest/bookingPage"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="admin/adminHome"
+        options={{
           headerShown: false,
         }}
       />
